@@ -6,6 +6,8 @@ from pprint import pprint
 class Relation(object):
     """ relation with something
     re-define class variable from subclass
+
+    fixme: duplicate relation name
     """
     relation = 'relation'       # relation
     item = 'item'               # item
@@ -48,10 +50,9 @@ class Relation(object):
                           engine="neato")
             self.dot = dot
             dot.attr('graph', overlap='false')
+            dot.attr('graph', concentrate='true')
             dot.attr('node', width='.3', height='.3')
             
-            # rname = self.relations[self.name]
-            # dot.node(rname)
             self.plotRelation(self.relations)
             self.dot.view()
         except ModuleNotFoundError as e:
@@ -59,10 +60,12 @@ class Relation(object):
             print(f"$>pip install graphviz")
             print()
             pprint(self.relations)
-            
     def plotRelation(self, relations):
         rname = relations[self.name]
-        self.dot.attr('node', shape='box', style='filled', fillcolor=self.colorrelation)
+        if rname == self.relations[self.name]:
+            self.dot.attr('node', shape='box3d', style='filled', fillcolor=self.colorrelation)
+        else:
+            self.dot.attr('node', shape='box', style='filled', fillcolor=self.colorrelation)
         self.dot.node(rname)
         if self.item in relations:
             for item in relations[self.item]:
