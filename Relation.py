@@ -34,6 +34,9 @@ class Relation(object):
             relations['relation'].append(self.parse(xmlrelation))
 
         return relations
+
+    def plot(self):
+        pprint(self.relations)
         
     @property
     def relations(self):
@@ -42,7 +45,8 @@ class Relation(object):
 if __name__ == '__main__':
     i = '1.xml'
     r = Relation(i)
-    relations = r.relations
-    pprint(relations)
+    r.plot()
+    # relations = r.relations
+    # pprint(relations)
 
     
